@@ -1,0 +1,30 @@
+---
+- name: install mysql repo
+  yum:
+    name: https://dev.mysql.com/get/mysql57-community-release-el6-11.noarch.rpm
+
+- name: install mysql
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - mysql-community-server
+    - mysql-community-client
+    - mysql-community-common
+    - mysql-community-libs
+    - mysql-community-libs-compat
+
+- name: setting mysql
+  template:
+    src: mysql_conf
+    dest: /etc/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart mysql
+
+- name: start mysql
+  service:
+    name: mysqld
+    state: started
+    enabled: yes

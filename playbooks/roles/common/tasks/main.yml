@@ -1,0 +1,58 @@
+---
+- name: group exist
+  group:
+    name: "{{user.group}}"
+
+- name: users exist
+  user:
+    name: "{{user.name}}"
+    state: present
+    password: "{{user.password}}"
+    group: "{{user.group}}"
+    groups: "{{user.groups}}"
+
+- name: ~/.ssh for users
+  file:
+    path: "/home/{{user.name}}/.ssh"
+    state: directory
+    owner: "{{user.name}}"
+    group: "{{user.group}}"
+    mode: 0700
+
+- name: authorized keys is deployed
+  copy:
+    src: "authorized_keys_for_{{user.name}}"
+    dest: "/home/{{user.name}}/.ssh/authorized_keys"
+    owner: "{{user.name}}"
+    group: "{{user.group}}"
+    mode: 0600
+
+- name: /etc/sudoers.d exist
+  file:
+    path: /etc/sudoers.d
+    state: directory
+    owner: root
+    group: root
+
+- name: user is in sudoers
+  template:
+    src: "sudoers"
+    dest: "/etc/sudoers.d/{{user.name}}"
+    owner: root
+    group: root
+    mode: 0440
+
+- name: set bash_profile
+  template:
+    src: bash_profile
+    dest: "/home/{{user.name}}/.bash_profile"
+    owner: "{{user.name}}"
+    mode: 0644
+
+- name: set yum conf
+  template:
+    src: yum_conf
+    dest: /etc/yum.conf
+    owner: root
+    group: root
+    mode: 0644

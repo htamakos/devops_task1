@@ -1,0 +1,13 @@
+user:
+  name: "oracle"
+  password: "$1$qQxgB.vu$Pg5.KzIJ.7AfkOmkDiGGu/"
+  group: "dba"
+  groups: ""
+http_proxy: http://jp-proxy.jp.oracle.com:80
+http_proxys: http://jp-proxy.jp.oracle.com:80
+no_proxy: "localhost, 127.0.0.1, 0.0.0.0"
+ansible_distribution_major_version: 6
+tomcat_http_port: 8080
+tomcat_https_port: 8443
+admin_username: admin
+admin_password: adminsecret

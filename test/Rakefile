@@ -1,0 +1,24 @@
+require 'rake'
+require 'rspec/core/rake_task'
+
+task :default => :spec
+
+targets = []
+Dir.glob('./spec/*').each do |dir|
+  next unless File.directory?(dir)
+  target = File.basename(dir)
+  targets << target
+end
+
+desc 'Run serverspec to all hosts'
+task spec: targets.map { |t| "spec:#{t}" }
+
+namespace :spec do
+  targets.each do |target|
+    desc "Run serverspec to #{target}"
+    RSpec::Core::RakeTask.new(target) do |t|
+      t.pattern = "spec/#{target}/*_spec.rb"
+      t.fail_on_error = false
+    end
+  end
+end

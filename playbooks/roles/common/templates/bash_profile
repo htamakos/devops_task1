@@ -1,0 +1,15 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+export http_proxy={{http_proxy}}
+export https_proxy=$http_proxy
+export no_proxy="{{no_proxy}}"
+
+PATH=$PATH:$HOME/bin
+export PATH
+
+export LANG=ja_JP.utf8

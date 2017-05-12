@@ -1,0 +1,9 @@
+---
+- hosts: test_docker_container
+  connection: docker
+  roles:
+    - db
+  environment:
+    http_proxy: "{{http_proxy}}"
+    https_proxy: "{{http_proxy}}"
+    no_proxy: "{{no_proxy}}"

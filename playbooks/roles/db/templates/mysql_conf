@@ -1,0 +1,106 @@
+[mysqld]
+# --------------------------------------------------
+# Base
+# --------------------------------------------------
+user = mysql
+port = 3306
+datadir = /var/lib/mysql
+socket  = /var/lib/mysql/mysql.sock
+pid-file = /var/run/mysqld/mysqld.pid
+symbolic-links = 0
+sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+default-storage-engine = InnoDB
+transaction-isolation = REPEATABLE-READ
+character-set-server = utf8
+collation-server = utf8_general_ci
+skip-character-set-client-handshake
+
+# --------------------------------------------------
+# Replication
+# --------------------------------------------------
+# not use Replication for now
+server-id   = 1
+log-bin = mysql-bin
+
+# --------------------------------------------------
+# Network
+# --------------------------------------------------
+# Global
+skip-name-resolve
+max_connections = 100
+max_connect_errors = 999999999
+connect_timeout = 10
+max_allowed_packet = 16M
+# Global, Session
+max_user_connections = 0
+wait_timeout = 600
+interactive_timeout = 600
+
+# --------------------------------------------------
+# Logging
+# --------------------------------------------------
+log_output = FILE
+log_warnings = 1
+general_log = 0
+general_log_file = /var/log/mysql/query.log
+log-slow-admin-statements = 1
+log-queries-not-using-indexes = 1
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 0.5
+expire_logs_days = 14
+
+# --------------------------------------------------
+# Cache & Memory
+# --------------------------------------------------
+# Global
+thread_cache_size = 30
+table_open_cache = 400
+query_cache_size = 16M
+query_cache_limit = 1M
+# Global, Session
+max_heap_table_size = 16M
+tmp_table_size = 16M
+sort_buffer_size = 2M
+read_buffer_size = 131072
+join_buffer_size = 131072
+read_rnd_buffer_size = 262144
+
+# --------------------------------------------------
+# MyISAM
+# --------------------------------------------------
+# Global
+skip-external-locking
+key_buffer_size = 8M
+myisam_max_sort_file_size = 2G
+myisam_recover_options = DEFAULT
+# Global, Session
+bulk_insert_buffer_size = 8M
+myisam_sort_buffer_size = 8M
+
+# --------------------------------------------------------------------
+# InnoDB behavior
+# --------------------------------------------------------------------
+# Global
+innodb_file_format = Barracuda
+innodb_write_io_threads = 4
+innodb_read_io_threads = 4
+innodb_stats_on_metadata = 1
+innodb_max_dirty_pages_pct = 90
+innodb_adaptive_hash_index = 1
+innodb_adaptive_flushing = 1
+innodb_strict_mode = 1
+innodb_io_capacity = 200
+innodb_autoinc_lock_mode = 1
+innodb_change_buffering = inserts
+innodb_old_blocks_time = 500
+
+[mysqldump]
+default-character-set = utf8
+quick
+max_allowed_packet = 16M
+
+[mysql]
+default-character-set = utf8
+no-auto-rehash
+show-warnings
