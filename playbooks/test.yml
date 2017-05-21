@@ -2,6 +2,9 @@
 - hosts: test_docker_container
   connection: docker
   roles:
+    - common
+    - web
+    - app
     - db
   environment:
     http_proxy: "{{http_proxy}}"

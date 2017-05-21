@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'pry'
-
 set :docker_container, 'test_docker_container'
 
 describe command('java -version') do
