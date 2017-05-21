@@ -25,6 +25,13 @@ describe port('3306') do
   it { should be_listening }
 end
 
+describe file('/etc/my.cnf') do
+  it { should exist }
+  it { should be_mode 644 }
+  it { should be_owned_by 'root' }
+  it { should be_grouped_into 'root' }
+end
+
 describe 'MySQL config parameters' do
   context mysql_config('character-set-server') do
     its(:value) { should eq 'utf8' }
