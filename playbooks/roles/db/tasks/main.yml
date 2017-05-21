@@ -9,7 +9,6 @@
     state: present
   with_items:
     - mysql-community-server
-    - mysql-community-client
     - mysql-community-common
     - mysql-community-libs
     - mysql-community-libs-compat
@@ -22,9 +21,3 @@
     group: root
     mode: 0644
   notify: restart mysql
-
-- name: start mysql
-  service:
-    name: mysqld
-    state: started
-    enabled: yes

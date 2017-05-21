@@ -3,7 +3,7 @@
 # Base
 # --------------------------------------------------
 user = mysql
-port = 3306
+port = 3366
 datadir = /var/lib/mysql
 socket  = /var/lib/mysql/mysql.sock
 pid-file = /var/run/mysqld/mysqld.pid
@@ -27,7 +27,7 @@ log-bin = mysql-bin
 # --------------------------------------------------
 # Global
 skip-name-resolve
-max_connections = 100
+max_connections = 10
 max_connect_errors = 999999999
 connect_timeout = 10
 max_allowed_packet = 16M
@@ -45,7 +45,7 @@ general_log = 0
 general_log_file = /var/log/mysql/query.log
 log-slow-admin-statements = 1
 log-queries-not-using-indexes = 1
-slow_query_log = 1
+slow_query_log = 0
 slow_query_log_file = /var/log/mysql/slow.log
 long_query_time = 0.5
 expire_logs_days = 14

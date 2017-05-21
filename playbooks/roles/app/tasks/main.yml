@@ -1,18 +1,18 @@
 ---
-- name: Install Java 1.7
+- name: Install Java 1.8
   yum:
-    name: java-1.7.0-openjdk
+    name: java-1.8.0-openjdk
     state: present
 
 - name: add group "tomcat"
   group:
-    name: tomcat
+    name: tamacat
 
 - name: add user "tomcat"
   user:
     name: tomcat
-    group: tomcat
-    home: /usr/share/tomcat
+    group: tamacat
+    home: /home/tomcat
     createhome: no
 
 - name: Download Tomcat
@@ -36,7 +36,7 @@
   file:
     path: /usr/share/tomcat/
     owner: tomcat
-    group: tomcat
+    group: tamacat
     state: directory
     recurse: yes
 
@@ -56,13 +56,13 @@
   copy:
     src: tomcat-initscript.sh
     dest: /etc/init.d/tomcat
-    mode: 0755
+    mode: 0700
 
 - name: Start Tomcat
   service:
     name: tomcat
     state: started
-    enabled: yes
+    enabled: no
 
 - name: wait for tomcat to start
   wait_for:

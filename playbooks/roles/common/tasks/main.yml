@@ -17,7 +17,7 @@
     state: directory
     owner: "{{user.name}}"
     group: "{{user.group}}"
-    mode: 0700
+    mode: 0600
 
 - name: authorized keys is deployed
   copy:
@@ -31,28 +31,13 @@
   file:
     path: /etc/sudoers.d
     state: directory
-    owner: root
-    group: root
-
-- name: user is in sudoers
-  template:
-    src: "sudoers"
-    dest: "/etc/sudoers.d/{{user.name}}"
-    owner: root
-    group: root
-    mode: 0440
-
-- name: set bash_profile
-  template:
-    src: bash_profile
-    dest: "/home/{{user.name}}/.bash_profile"
     owner: "{{user.name}}"
-    mode: 0644
+    group: root
 
 - name: set yum conf
   template:
     src: yum_conf
     dest: /etc/yum.conf
     owner: root
-    group: root
+    group: wheel
     mode: 0644
